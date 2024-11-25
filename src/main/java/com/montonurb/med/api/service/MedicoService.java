@@ -22,12 +22,17 @@ public class MedicoService {
     }
 
     public Page<DadosListagemMedico> buscarTodosMedicos(Pageable pageable) {
-        return repository.findAll(pageable).map(DadosListagemMedico::new);
+        return repository.buscarMedicosAtivos(pageable).map(DadosListagemMedico::new);
     }
 
     public void atualizarMedico(DadosAtualizacaoMedico dados) {
         Medico medico = repository.getReferenceById(dados.id());
         medico.atualizarInformacoes(dados);
 
+    }
+
+    public void excluirMedico(Long id) {
+        Medico medico = repository.getReferenceById(id);
+        medico.setAtivo(false);
     }
 }
