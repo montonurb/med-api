@@ -1,4 +1,9 @@
 package com.montonurb.med.api.dto;
 
-public class DadosErroValidacao {
+import org.springframework.validation.FieldError;
+
+public record DadosErroValidacao(String campo, String menssagem) {
+    public DadosErroValidacao(FieldError field) {
+        this(field.getField(), field.getDefaultMessage());
+    }
 }
